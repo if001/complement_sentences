@@ -77,7 +77,11 @@ class EnhancedTrainingArguments:
     )
     lr_scheduler_type: SchedulerType = field(
         default="linear",
-        metadata={"help": "liner or constant, or..."}        
+        metadata={"help": "liner or constant, or..."}
+    )
+    logging_dir: str = field(
+        default=None,
+        metadata={"help": "log dir"}
     )
 
     def __post_init__(self):
@@ -140,7 +144,8 @@ def parse_train_arg(args: EnhancedTrainingArguments, output_dir):
         metric_for_best_model = 'eval_loss',
         load_best_model_at_end = True,
         save_total_limit=1,
-        fp16 = args.fp16
+        fp16 = args.fp16,
+        logging_dir=args.logging_dir
         )
 
 def load_model(model_name):
